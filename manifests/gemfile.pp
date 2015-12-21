@@ -6,7 +6,7 @@ define beaker_init::gemfile(
 
   validate_hash($gems)
 
-  file { "${title}-${path}":
+  file { $path:
     path    => $path,
     ensure  => 'file',
     mode    => '0644',

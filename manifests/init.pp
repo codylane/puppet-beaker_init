@@ -36,15 +36,22 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class beaker_init(
-  $gemfile = $beaker_init::params::gemfile,
+  $project_dir,
   $gems    = $beaker_init::params::gems,
+  $define_raketasks = true,
 ) inherits beaker_init::params {
 
   validate_hash($gems)
 
   beaker_init::gemfile { "beaker-gemfile":
-    path         => $gemfile,
+    path         => "${project_dir}/Gemfile",
     gems         => $gems,
+  }
+
+  if $define_raketasks {
+    class { "beaker_init::raketask":
+      project_dir => $project_dir,
+    }
   }
 
 }
