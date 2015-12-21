@@ -59,8 +59,4 @@ class beaker_init(
     project_dir => $project_dir,
   }
 
-  class { 'beaker_init::beaker_spec_helper':
-    project_dir => $project_dir,
-  }
-
 }
