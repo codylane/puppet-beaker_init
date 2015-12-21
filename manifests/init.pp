@@ -56,7 +56,11 @@ class beaker_init(
 
   # beaker specific setup
   class { 'beaker_init::beaker_dirs':
-    project_dir => $project_dir
+    project_dir => $project_dir,
+  }
+
+  class { 'beaker_init::beaker_spec_helper':
+    project_dir => $project_dir,
   }
 
 }
