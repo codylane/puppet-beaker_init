@@ -1,0 +1,7 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - beaker
+:yaml:
+  :datadir: hieradata

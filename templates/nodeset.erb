@@ -1,0 +1,67 @@
+HOSTS:
+  <%= @nodeset_name %>:
+<% if @roles -%>
+    roles:
+<% @roles.each do |role| -%>
+      - <%= role %>
+<% end -%>
+<% end -%>
+    platform: <%= @platform %>
+    hypervisor: <%= @hypervisor %>
+<% if @hypervisor == 'vagrant' -%>
+    box: <%= @vagrant_box %>
+    box_url: <%= @vagrant_box_url %>
+<% if @vb_gui -%>
+    vb_gui: true
+<% else -%>
+    vb_gui: false
+<% end -%>
+<% end -%>
+<% if @hypervisor == 'docker' -%>
+    image: <%= @docker_image %>
+<% if @docker_image_commands and ! @docker_image_commands.empty? -%>
+    docker_image_commands:
+<% @docker_image_commands.each do |command| -%>
+      - <%= command %>
+<% end -%>
+<% end -%>
+<% if @docker_cmd and ! @docker_cmd.empty? -%>
+    docker_cmd: <%= @docker_cmd %>
+<% end -%>
+<% if @docker_preserve_image -%>
+    docker_preserve_image: true
+<% else -%>
+    docker_preserve_image: false
+<% end -%>
+<% end -%>
+<% if @ip -%>
+    ip: <%= @ip %>
+<% end -%>
+<% if @snapshot -%>
+    snapshot: <%= @snapshot %>
+<% end -%>
+<% if @pe_dir -%>
+    pe_dir: <%= @pe_dir %>
+<% end -%>
+<% if @pe_ver -%>
+    pe_ver: <%= @pe_ver %>
+<% end -%>
+<% if @vagrant_memsize -%>
+    vagrant_memsize: <%= @vagrant_memsize %>
+<% end -%>
+<% if @config and @config.class == Hash and ! @config.empty? -%>
+CONFIG:
+<% @config.each do |key, value| -%>
+  <%= key %>: <%= value %>
+<% end -%>
+<% end -%>
+<% if @extra and @extra.class == Hash and ! @extra.empty? -%>
+<% @extra.each do |key, section| -%>
+<% if section.class == Hash -%>
+<%= key %>:
+<% section.each do |key, value| -%>
+  <%= key %>: <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>

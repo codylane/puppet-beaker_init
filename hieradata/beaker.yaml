@@ -1,0 +1,10 @@
+beaker_nodesets:
+  example_project:
+    centos-6u7-x64:
+      project_dir: /tmp/example_project
+      nodeset_name: centos-6u7-x64
+    centos-default:
+      project_dir: /tmp/example_project
+      nodeset_name: centos-default
+      hypervisor: docker
+      docker_image: centos:6.6

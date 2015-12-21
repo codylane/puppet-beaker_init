@@ -1,0 +1,21 @@
+<% if @source.class == Array -%>
+<% @source.each do |src| -%>
+source "<%= src %>"
+<% end -%>
+<% else -%>
+source "<%= @source %>"
+<% end -%>
+
+puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3']
+
+<% @gems.each do |gem_name, gem_args| -%>
+<%# gem args is a hash -%>
+<% if gem_args['ensure'] == 'present' -%>
+<% if gem_args['gem_attrs'] -%>
+<% gem_attrs = ', ' + gem_args['gem_attrs'].join(', ') -%>
+<% else -%>
+<% gem_attrs = '' -%>
+<% end -%>
+gem "<%= gem_name %>"<%= gem_attrs %>
+<% end -%>
+<% end -%>

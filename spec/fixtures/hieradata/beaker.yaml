@@ -1,0 +1,12 @@
+beaker_nodesets:
+  foo_project:
+    project_dir: /tmp/project
+    roles:
+      - agent
+    vagrant_box: centos-6u7
+    vagrant_box_url: http://somehost.example.com/centos-6u7.box
+    config:
+      type: foss
+    extra:
+      ssh:
+        password: somestring
