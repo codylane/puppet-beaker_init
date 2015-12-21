@@ -1,0 +1,11 @@
+- Setup Rakefile
+- Setup spec_helper.rb
+---- Include coverage
+---- Include helper methods for getting the module path
+---- Include helper moethods for getting the fixtures path
+
+- Ability to manage the gems for rspec-puppet, puppetlabs-beaker
+
+- create spec/acceptance direcotyr
+-- create spec/acceptance/nodesetsdirectory
+-- create spec/spec_acceptance_helper.rb

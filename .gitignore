@@ -1,0 +1,26 @@
+## MAC OS
+.DS_Store
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## EMACS
+*~
+\#*
+.\#*
+
+## VIM
+*.swp
+tags
+
+## rspec
+spec/fixtures/modules
+spec/fixtures/manifests
+
+## bundler
+.bundle
+vendor
+
+## Gemfile.lock
+Gemfile.lock
