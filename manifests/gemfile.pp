@@ -7,7 +7,6 @@ class beaker_init::gemfile(
   validate_hash($gems)
 
   file { $path:
-    path    => $path,
     ensure  => 'file',
     mode    => '0644',
     content => template('beaker_init/gemfile.erb')

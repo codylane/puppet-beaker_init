@@ -12,7 +12,7 @@ puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>=
 <%# gem args is a hash -%>
 <% if gem_args['ensure'] == 'present' -%>
 <% if gem_args['gem_attrs'] -%>
-<% gem_attrs = ', ' + gem_args['gem_attrs'].join(',') -%>
+<% gem_attrs = ', ' + gem_args['gem_attrs'].join(', ') -%>
 <% else -%>
 <% gem_attrs = '' -%>
 <% end -%>

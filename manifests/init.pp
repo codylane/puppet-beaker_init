@@ -94,7 +94,7 @@ class beaker_init(
 
   validate_hash($gems)
 
-  beaker_init::gemfile { 'beaker-gemfile':
+  class { 'beaker_init::gemfile':
     path => "${project_dir}/Gemfile",
     gems => $gems,
   }
