@@ -16,3 +16,5 @@ def read_fixture_file filename
   File.read(filename)
 end
 
+# Include code coverage report for all our specs
+at_exit { RSpec::Puppet::Coverage.report! }
