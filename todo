@@ -1,8 +1,0 @@
-- Setup spec_helper.rb
----- Include coverage
----- Include helper methods for getting the module path
----- Include helper moethods for getting the fixtures path
-
-- create spec/acceptance direcotyr
--- create spec/acceptance/nodesetsdirectory
--- create spec/spec_acceptance_helper.rb
