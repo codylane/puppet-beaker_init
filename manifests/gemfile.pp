@@ -1,4 +1,4 @@
-define beaker_init::gemfile(
+class beaker_init::gemfile(
   $path,
   $gems,
   $source = 'https://rubygems.org',
