@@ -1,39 +1,90 @@
 # == Class: beaker_init
 #
-# Full description of class beaker_init here.
+# This puppet module will help you create the skeleton needed to get beaker
+# up and running with some very opinionated helper rake utilities for your
+# testing enjoyment.
+#
+# WARNING: The class can be destructive if you are already using rspec-puppet
+# beaker and have custom Gemfiles in your project root.  Please be sure to
+# run puppet in `--noop` mode to see what changes puppet will make to an
+# existing project.
+#
+# This class is responsible for setting up the following things for you:
+#  * It will define a Gemfile that in your project root that is responsible
+#    for installing rspec-puppet, beaker, puppet, facter... etc.
+#  * It will define a Rakefile that (is more or less a copy) from
+#    `puppet-module generate` with some added twists to allow you to easily
+#    extend and add new functionality.  This module will provide you with some
+#    of those additions.
+#     * This module will create a `tasks` directory next to your `Rakefile`
+#       which is where the custom help utilities will be defined.
+#  * This class will define the following directory structure
+#
+#    spec -> The main
+#     |
+#     | - acceptance -> The beaker acceptance testing dir
+#              |
+#              | - nodesets -> Where you define your node definitions for
+#                              beaker acceptance testing.
+#
+#  * It will define your `spec_helper.rb` with some added methods for helping
+#    you in your unit tests.
+#  * It will define your `spec_helper_acceptance.rb` with some customizations
+#    that allow you to use hiera more easily without the need of re-defining
+#    your hiera parameters inside your beaker tests.
 #
 # === Parameters
 #
-# Document parameters here.
+# [*project_dir*]
+#   A fully qualified path to your puppet project.  This should be the root
+#   directory of your project.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*gems*]
+#   A hash of hashes that contain gem information for your Gemfile.
+#   Default: `$beaker_init::params::gems`
 #
-# === Variables
+#   Here is an example of what you want to override this setting:
+#   ```
+#   $gems = {
+#     'rspec-puppet': {
+#       'ensure'    => 'present',
+#       'gem_attrs' => [':require => false', '">= 0.9.6"'],
+#     },
+#     'someothergem: {
+#      'ensure' => 'absent',
+#     },
+#   }
+#   ```
 #
-# Here you should define a list of variables that this module would require.
+#   And if you want to override in hiera
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+#   ```
+#   beaker_init::gems:
+#     rspec-puppet:
+#       ensure: present
+#       gem_attrs:
+#         - :require => false
+#           ">= 0.9.6"
+#     someothergme:
+#       ensure: absent
+#   ```
+#
+# [*define_raketasks*]
+#  A boolean that toggles the custom rake tasks to be setup and included
+#  in the `tasks` directory next to your Rakefile.
+#  Default: `true`
 #
 # === Examples
 #
 #  class { 'beaker_init':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    project_dir => '/path/to/my/project',
 #  }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Author Name Cody Lane
 #
-# === Copyright
-#
-# Copyright 2015 Your name here, unless otherwise noted.
+# 2015
 #
 class beaker_init(
   $project_dir,
@@ -43,13 +94,13 @@ class beaker_init(
 
   validate_hash($gems)
 
-  beaker_init::gemfile { "beaker-gemfile":
-    path         => "${project_dir}/Gemfile",
-    gems         => $gems,
+  beaker_init::gemfile { 'beaker-gemfile':
+    path => "${project_dir}/Gemfile",
+    gems => $gems,
   }
 
   if $define_raketasks {
-    class { "beaker_init::raketask":
+    class { 'beaker_init::raketask':
       project_dir => $project_dir,
     }
   }

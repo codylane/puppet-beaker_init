@@ -17,7 +17,6 @@ class beaker_init::raketask(
     ensure       => file,
     mode         => '0644',
     source       => "puppet:///modules/beaker_init/tasks/",
-    sourceselect => 'all',
     recurse      => true,
   }
 
