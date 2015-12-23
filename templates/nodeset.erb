@@ -18,13 +18,14 @@ HOSTS:
 <% end -%>
 <% end -%>
 <% if @hypervisor == 'docker' -%>
-<% if @docker_image_commands -%>
+    image: <%= @docker_image %>
+<% if @docker_image_commands and ! @docker_image_commands.empty? -%>
     docker_image_commands:
 <% @docker_image_commands.each do |command| -%>
       - <%= command %>
 <% end -%>
 <% end -%>
-<% if @docker_cmd -%>
+<% if @docker_cmd and ! @docker_cmd.empty? -%>
     docker_cmd: <%= @docker_cmd %>
 <% end -%>
 <% if @docker_preserve_image -%>

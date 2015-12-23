@@ -103,6 +103,7 @@ HOSTS:
       - agent
     platform: el-6-x86_64
     hypervisor: docker
+    image: centos6.7
     docker_image_commands:
       - run this
       - then run this
@@ -119,6 +120,41 @@ EOS
         :mode    => '0644',
         :content => default_nodeset
       })
+    end
+
+    describe 'without docker_image_commands, docker_preserve_image, docker_image' do
+      let(:params) do
+        {
+          :project_dir => '/foo/project',
+          :hypervisor => 'docker'
+        }
+      end
+
+      let(:title) { 'docker-default2' }
+      let(:default_nodeset) do
+<<-EOS
+HOSTS:
+  docker-default2:
+    roles:
+      - master
+      - agent
+    platform: el-6-x86_64
+    hypervisor: docker
+    image: centos6.7
+    docker_preserve_image: false
+EOS
+      end
+
+      it { should compile }
+
+      it do
+        should contain_file('/foo/project/spec/acceptance/nodesets/docker-default2.yml').with({
+          :ensure  => 'file',
+          :mode    => '0644',
+          :content => default_nodeset
+        })
+      end
+
     end
   end
 

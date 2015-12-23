@@ -7,6 +7,7 @@ define beaker_init::nodeset(
   $hypervisor            = 'vagrant',
   $vagrant_box           = 'centos-65-x64-vbox436-nocm',
   $vagrant_box_url       = 'http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box',
+  $docker_image          = 'centos6.7',
   $docker_image_commands = [],
   $docker_preserve_image = false,
   $docker_cmd            = [],
