@@ -48,14 +48,19 @@ HOSTS:
 <% if @vagrant_memsize -%>
     vagrant_memsize: <%= @vagrant_memsize %>
 <% end -%>
-<% if @config -%>
-config:
+<% if @config and @config.class == Hash and ! @config.empty? -%>
+CONFIG:
 <% @config.each do |key, value| -%>
   <%= key %>: <%= value %>
 <% end -%>
 <% end -%>
-<% if @extra -%>
-<% @extra.each do |key, value| -%>
+<% if @extra and @extra.class == Hash and ! @extra.empty? -%>
+<% @extra.each do |key, section| -%>
+<% if section.class == Hash -%>
+<%= key %>:
+<% section.each do |key, value| -%>
   <%= key %>: <%= value %>
+<% end -%>
+<% end -%>
 <% end -%>
 <% end -%>

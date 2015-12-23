@@ -160,4 +160,42 @@ EOS
 
   end
 
+  context 'parameters passed in via hiera' do
+    hiera_config = get_hiera_config
+    hiera = Hiera.new(:config => hiera_config)
+    nodesets = hiera.lookup('beaker_nodesets', nil, nil)
+
+    describe "for foo_project hiera section" do
+      let(:title) { 'foo_project' }
+      let(:params) { nodesets['foo_project'] }
+      let(:nodeset_output) do
+<<-EOS
+HOSTS:
+  foo_project:
+    roles:
+      - agent
+    platform: el-6-x86_64
+    hypervisor: vagrant
+    box: centos-6u7
+    box_url: http://somehost.example.com/centos-6u7.box
+    vb_gui: false
+CONFIG:
+  type: foss
+ssh:
+  password: somestring
+EOS
+      end
+
+      it { should compile }
+
+      it do
+        should contain_file("/tmp/project/spec/acceptance/nodesets/#{title}.yml").with({
+          :ensure  => 'file',
+          :mode    => '0644',
+          :content => nodeset_output
+        })
+      end
+    end
+  end
+
 end
