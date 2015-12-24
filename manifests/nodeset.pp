@@ -12,7 +12,7 @@ define beaker_init::nodeset(
   $docker_preserve_image = false,
   $docker_cmd            = [],
   $snapshot              = undef,
-  $config                = {},
+  $config                = {'type' => 'foss'},
   $extra                 = {},
 ) {
 

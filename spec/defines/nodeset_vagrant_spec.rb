@@ -31,6 +31,8 @@ HOSTS:
     box: centos-65-x64-vbox436-nocm
     box_url: http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box
     vb_gui: false
+CONFIG:
+  type: foss
 EOS
     end
 
@@ -67,6 +69,8 @@ HOSTS:
     box: some-box-name
     box_url: http://host/some-box-name.box
     vb_gui: false
+CONFIG:
+  type: foss
 EOS
     end
 
@@ -109,6 +113,8 @@ HOSTS:
       - then run this
     docker_cmd: ["/sbin/init"]
     docker_preserve_image: false
+CONFIG:
+  type: foss
 EOS
     end
 
@@ -142,6 +148,8 @@ HOSTS:
     hypervisor: docker
     image: centos6.7
     docker_preserve_image: false
+CONFIG:
+  type: foss
 EOS
       end
 
@@ -181,6 +189,8 @@ HOSTS:
     box_url: http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box
     vb_gui: false
     snapshot: somevalue
+CONFIG:
+  type: foss
 EOS
     end
 
