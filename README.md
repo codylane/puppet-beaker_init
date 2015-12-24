@@ -73,7 +73,7 @@ TODO: I need to figure out how to do this.
 
 NOTE: Make sure that you have puppetlabs-stdlib installed in your
 modules.  If you are using the `bin/beaker_init` script it will handle
-htis for you.
+this for you.
 
 It is expected that you run this using `puppet apply` but you may also
 integrate this module in your puppet master.
@@ -127,12 +127,6 @@ beaker_nodesets:
 The above defines a namespace called `beaker_nodesets` so you can do a
 hiera lookup on that variable.  If you use roles and profiles you would
 create a new profile and define the hiera lookup there.
-
-NOTE: This example requires that you have a fact called `beaker_project`
-which will we do here for this simple example.
-```
-export FACTER_beaker_project="/tmp/example_project"
-```
 
 Now we will define a quick and dirty wrapper manifest, which we will
 store in `/tmp/site.pp`
