@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # beaker_init
 
 #### Table of Contents
@@ -172,7 +171,3 @@ I'll be happy to review and merge into this repo.
 `2015.12.21`
 First release.  Handles vagrant and docker hypervisor environments used
 with beaker.
-=======
-# puppet-beaker_init
-A puppet module for building out a skeleton directory for your beaker tests
->>>>>>> Initial commit
