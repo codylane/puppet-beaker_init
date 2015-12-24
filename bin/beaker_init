@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function get_module_path() {
+  cd ../../
+  echo $PWD/modules
+  cd - >>/dev/null
+}
+
+function get_hiera_yaml() {
+  cd ../
+  echo "$PWD/hiera.yaml"
+  cd - >>/dev/null
+}
+
+CMD_DIR=$(dirname $0)
+cd $CMD_DIR
+
+MODULE_PATH=$(get_module_path)
+HIERA_YAML=$(get_hiera_yaml)
+
+puppet apply --modulepath $MODULE_PATH --hiera_config $HIERA_YAML site.pp
