@@ -1,5 +1,4 @@
 define create_nodeset(
-  $project_dir,
   $project_name    = $title,
   $beaker_nodesets = hiera('beaker_nodesets'),
 ) {
@@ -8,7 +7,5 @@ define create_nodeset(
 }
 
 node default {
-  create_nodeset { 'example_project':
-    project_dir => '/tmp/example_project'
-  }
+  create_nodeset { 'example_project': }
 }
