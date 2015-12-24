@@ -4,10 +4,6 @@ define create_nodeset(
   $beaker_nodesets = hiera('beaker_nodesets'),
 ) {
 
-  class { 'beaker_init':
-    project_dir => $project_dir,
-  }
-
    create_resources(beaker_init::nodeset, $beaker_nodesets[$project_name])
 }
 

@@ -16,9 +16,16 @@ define beaker_init::nodeset(
   $extra                 = {},
 ) {
 
+  if ! defined(Class['beaker_init']) {
+    class { "beaker_init":
+      project_dir => $project_dir
+    }
+  }
+
   file { "${project_dir}/spec/acceptance/nodesets/${nodeset_name}.yml":
     ensure  => 'file',
     mode    => '0644',
     content => template('beaker_init/nodeset.erb'),
+    require => Class['beaker_init'],
   }
 }

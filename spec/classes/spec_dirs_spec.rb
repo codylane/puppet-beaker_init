@@ -14,6 +14,7 @@ describe 'beaker_init::spec_dirs' do
     end
 
     it { should compile }
+    it { should contain_class('beaker_init::spec_dirs') }
 
     it do
       should contain_file('/foo/project/spec').with({

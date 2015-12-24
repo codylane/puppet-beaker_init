@@ -14,6 +14,7 @@ describe 'beaker_init::raketask' do
     end
 
     it { should compile }
+    it { should contain_class('beaker_init::raketask') }
 
     it do
       should contain_file('/foo/project').with({

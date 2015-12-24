@@ -52,6 +52,7 @@ EOS
     end
 
     it { should compile }
+    it { should contain_class('beaker_init::gemfile') }
 
     it do
       should contain_file('/foo/project/Gemfile').with({
@@ -88,6 +89,7 @@ EOS
     end
 
     it { should compile }
+    it { should contain_class('beaker_init::gemfile') }
 
     it do
       should contain_file('/foo/project/Gemfile').with({
@@ -117,6 +119,7 @@ EOS
     end
 
     it { should compile }
+    it { should contain_class('beaker_init::gemfile') }
 
     it do
       should contain_file('/foo/project/Gemfile').with({

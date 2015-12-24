@@ -18,6 +18,10 @@ describe 'beaker_init::nodeset', :type => :define do
     let(:title) { 'default' }
 
     it { should compile }
+    it { should contain_class('beaker_init') }
+    it { should contain_class('beaker_init::raketask') }
+    it { should contain_class('beaker_init::gemfile') }
+    it { should contain_class('beaker_init::spec_dirs') }
 
     let(:default_nodeset) do
 <<-EOS
@@ -75,6 +79,10 @@ EOS
     end
 
     it { should compile }
+    it { should contain_class('beaker_init') }
+    it { should contain_class('beaker_init::raketask') }
+    it { should contain_class('beaker_init::gemfile') }
+    it { should contain_class('beaker_init::spec_dirs') }
 
     it do
       should contain_file('/foo/project/spec/acceptance/nodesets/default.yml').with({
@@ -119,6 +127,10 @@ EOS
     end
 
     it { should compile }
+    it { should contain_class('beaker_init') }
+    it { should contain_class('beaker_init::raketask') }
+    it { should contain_class('beaker_init::gemfile') }
+    it { should contain_class('beaker_init::spec_dirs') }
 
     it do
       should contain_file('/foo/project/spec/acceptance/nodesets/docker-default.yml').with({
@@ -154,6 +166,10 @@ EOS
       end
 
       it { should compile }
+      it { should contain_class('beaker_init') }
+      it { should contain_class('beaker_init::raketask') }
+      it { should contain_class('beaker_init::gemfile') }
+      it { should contain_class('beaker_init::spec_dirs') }
 
       it do
         should contain_file('/foo/project/spec/acceptance/nodesets/docker-default2.yml').with({
@@ -195,6 +211,10 @@ EOS
     end
 
     it { should compile }
+    it { should contain_class('beaker_init') }
+    it { should contain_class('beaker_init::raketask') }
+    it { should contain_class('beaker_init::gemfile') }
+    it { should contain_class('beaker_init::spec_dirs') }
 
     it do
       should contain_file('/foo/project/spec/acceptance/nodesets/snapshot-default.yml').with({
@@ -233,6 +253,29 @@ EOS
       end
 
       it { should compile }
+
+      describe 'contain class[beaker_init]' do
+        it { should contain_class('beaker_init') }
+        it { should contain_file('/tmp/project') }
+      end
+
+      describe 'contain class[beaker_init::raketask' do
+        it { should contain_class('beaker_init::raketask') }
+        it { should contain_file('/tmp/project/Rakefile') }
+        it { should contain_file('/tmp/project/tasks') }
+      end
+
+      describe 'contain class[beaker_init::gemfile]' do
+        it { should contain_class('beaker_init::gemfile') }
+        it { should contain_file('/tmp/project/Gemfile') }
+      end
+
+      describe 'contain class[beaker_init::spec_dirs]' do
+        it { should contain_class('beaker_init::spec_dirs') }
+        it { should contain_file('/tmp/project/spec/') }
+        it { should contain_file('/tmp/project/spec/acceptance') }
+        it { should contain_file('/tmp/project/spec/acceptance/nodesets') }
+      end
 
       it do
         should contain_file("/tmp/project/spec/acceptance/nodesets/#{title}.yml").with({
