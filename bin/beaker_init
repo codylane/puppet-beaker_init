@@ -1,21 +1,66 @@
 #!/bin/bash
 
+function err() {
+  echo "ERR: $* exiting"
+  exit 1
+}
+
 function get_module_path() {
-  cd ../../
-  echo $PWD/modules
-  cd - >>/dev/null
+  echo "$PWD"
 }
 
 function get_hiera_yaml() {
-  cd ../
   echo "$PWD/hiera.yaml"
-  cd - >>/dev/null
 }
 
+function is_module_installed() {
+  local MOD_NAME="$1"
+
+  [ -z "$MOD_NAME" ] && err "Please pass MOD_NAME argument to is_module_installed"
+
+  eval $PUPPET_CMD module --modulepath "${MODULE_PATH}/modules" list | grep "$MOD_NAME" >> /dev/null
+  return $?
+}
+
+function get_puppet_cmd() {
+  which puppet >>/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    echo $(which puppet)
+    return 0
+  fi
+
+  bundle exec puppet --version >>/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    echo  "bundle exec puppet"
+    return 0
+  fi
+
+  # if we got here error out
+  err "please install puppet as a system package or via a gem"
+}
+
+function install_puppet_module() {
+  local MOD_NAME="$1"
+
+  [ -z "$MOD_NAME" ] && err "Please pass MOD_NAME argument to is_module_installed"
+
+  is_module_installed "$MOD_NAME" || $PUPPET_CMD module install --target-dir "${MODULE_PATH}/modules" "$MOD_NAME"
+  return $?
+}
+
+set -x
 CMD_DIR=$(dirname $0)
 cd $CMD_DIR
+cd ../
 
 MODULE_PATH=$(get_module_path)
 HIERA_YAML=$(get_hiera_yaml)
 
-puppet apply --modulepath $MODULE_PATH --hiera_config $HIERA_YAML site.pp
+PUPPET_CMD=$(get_puppet_cmd)
+
+[ ! -d "${MODULE_PATH}/modules" ] && mkdir -p ${MODULE_PATH}/modules
+
+# just incase we need to install exra modules from the forge
+install_puppet_module "puppetlabs-stdlib"
+
+$PUPPET_CMD apply --modulepath ../:$MODULE_PATH/modules --hiera_config $HIERA_YAML $MODULE_PATH/site.pp

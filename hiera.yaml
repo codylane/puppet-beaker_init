@@ -4,4 +4,4 @@
 :hierarchy:
   - beaker
 :yaml:
-  :datadir: ../hieradata
+  :datadir: /beaker_init/hieradata
