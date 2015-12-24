@@ -128,6 +128,12 @@ The above defines a namespace called `beaker_nodesets` so you can do a
 hiera lookup on that variable.  If you use roles and profiles you would
 create a new profile and define the hiera lookup there.
 
+NOTE: This example requires that you have a fact called
+`beaker_project` which will we do here for this simple example.
+```
+export FACTER_beaker_project="/tmp/example_project"
+```
+
 Now we will define a quick and dirty wrapper manifest, which we will
 store in `/tmp/site.pp`
 ```
