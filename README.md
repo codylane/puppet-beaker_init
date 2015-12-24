@@ -142,6 +142,7 @@ node default {
 
   create_resources(beaker_init::nodeset, $beaker_nodesets[$::beaker_project])
 }
+```
 
 If you installed puppet as a package
 ```
