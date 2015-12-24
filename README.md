@@ -15,65 +15,159 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This puppet module is meant to help aid in puppet beaker testing.  It sets up
+all the important things you need to get up and running with beaker on
+your local workstaiton.  Please keep in mind that this may be
+opinionated but I'm hoping this will help others.  If you find something
+you would like to add, please do let me know or submit a pull request.
+
+NOTE: This module could be destructive to your exiting beaker test
+environemnts so I recommend running puppet in `noop` mode if you want to
+update your existing project.
+
+## What is puppetlabs beaker?
+Please read through this documentation found here:
+https://github.com/puppetlabs/beaker/tree/master/docs
+
+It helps you test your puppet modules in a local environment before
+rolling them into you production repositories.  It is not meant to
+replce things like CI but help aid in your CI development cycle.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+When I first starting learning beaker, I found that it required a lot of
+setup that I didn't know about off hand.  It took me a while to get all
+the directory structure in place and just to write a small test.  Yes,
+there are examples out there online that help you.  I hope this module
+will help you get some common things in place so that you can to do what you
+do best, which is writting code for your environment.
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+You could use this module in your puppet development workflow just to
+create a base skeleton or... You can use it to procativliey adjust your
+puppet development beaker projects. It's all up to you.
+
+### Quick overview of features
+* It will create a Gemfile in your project directory.
+* It will create a Rakefile in your project directory.
+* It will install some customized rake task helpers in your project
+  direcory in the `tasks` directory.
+* It will create your a spec directory in your project
+  * It will create a `spec_helper`
+  * It will create a `spec_helper_acceptance` for beaker testing
+  * it will create a `acceptance` directory in your spec dir
+    * It will create a `nodesets` directory and install your nodeset
+      definitions that are defined in hiera.
 
 ## Setup
+### Installing from git
 
-### What beaker_init affects
+```
+cd /to/your/module/directory
+git clone https://github.com/codylane/puppet-beaker_init.git beaker_init
+```
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+### Installing from the forge?
+TODO: I need to figure out how to do this.
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements 
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+NOTE: Make sure that you have puppetlabs-stdlib installed in your
+modules.  If you are using the `bin/beaker_init` script it will handle
+htis for you.
+
+It is expected that you run this using `puppet apply` but you may also
+integrate this module in your puppet master.
+
+
+If you want to use hiera please see the hiera example layout listed in
+this repo.
+  * see `hiera.yaml'
+  * see `hieradata/beaker.yaml`
 
 ### Beginning with beaker_init
 
-The very basic steps needed for a user to get the module up and running.
+NOTE: This is just an example of how to use this project.
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+Copy a module to `/tmp/example_project`.
+
+If you want to quickly test what this does you would cd to the location
+where you installed this repo and run the following command:
+```
+bin/beaker_init
+```
+
+The command above will create a skeleton so you can quickly start using
+beaker + puppet rspec... etc.
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+This may seem a little clunky at first and it is, but I'll continue to
+refactor and share updates.  I also look for suggestions if you would
+like additional features?
 
-## Reference
+### Create your hiera project bucket.
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+Besure to add this to your hiera datadir location. Or, you can use the
+one provided in this repo.
 
-## Limitations
+Example directory: `/etc/puppet/hieradata/beaker.yaml`
+```
+beaker_nodesets:
+  example_project:
+    centos-6u7-x64:
+      project_dir: /tmp/example_project
+      nodeset_name: centos-6u7-x64
+    centos-default:
+      project_dir: /tmp/example_project
+      nodeset_name: centos-default
+      hypervisor: docker
+      docker_image: centos:6.6
+```
 
-This is where you list OS compatibility, version compatibility, etc.
+The above defines a namespace called `beaker_nodesets` so you can do a
+hiera lookup on that variable.  If you use roles and profiles you would
+create a new profile and define the hiera lookup there.
+
+NOTE: This example requires that you have a fact called `beaker_project`
+which will we do here for this simple example.
+```
+export FACTER_beaker_project="/tmp/example_project"
+```
+
+Now we will define a quick and dirty wrapper manifest, which we will
+store in `/tmp/site.pp`
+```
+node default {
+  $beaker_nodesets = hiera('beaker_nodesets')
+
+  create_resources(beaker_init::nodeset, $beaker_nodesets[$::beaker_project])
+}
+
+If you installed puppet as a package
+```
+puppet apply --modulepath /your/module/path /tmp/site.pp
+```
+
+If you installed pupept as a gem
+```
+bundle exec puppet apply --modulepath /your/module/path /tmp/site.pp
+```
+
+Or...
+
+Use the module provided helper script to do all of this for you.
+```
+cd /path/to/your/modules/beaker_init
+bin/beaker_init
+```
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Fork this repo, make your changes, test them and submit a pull request.
+I'll be happy to review and merge into this repo.
 
-## Release Notes/Contributors/Etc **Optional**
+## Release Notes
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+`2015.12.21`
+First release.  Handles vagrant and docker hypervisor environments used
+with beaker.
