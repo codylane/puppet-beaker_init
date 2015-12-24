@@ -24,3 +24,6 @@ vendor
 
 ## Gemfile.lock
 Gemfile.lock
+
+## modules incase we install modules in this repo
+modules
