@@ -32,8 +32,8 @@ describe 'beaker_init' do
       it { should contain_file('/foo/project/tasks') }
     end
 
-    context 'contain beaker_init::beaker_dirs' do
-      it { should contain_class('beaker_init::beaker_dirs') }
+    context 'contain beaker_init::spec_dirs' do
+      it { should contain_class('beaker_init::spec_dirs') }
       it { should contain_file('/foo/project/spec/acceptance/nodesets') }
       it { should contain_file('/foo/project/spec/acceptance') }
       it { should contain_file('/foo/project/spec/') }
@@ -54,7 +54,7 @@ describe 'beaker_init' do
     it { should contain_class('beaker_init::params') }
     it { should contain_class('beaker_init::gemfile') }
     it { should_not contain_class('beaker_init::raketask') }
-    it { should contain_class('beaker_init::beaker_dirs') }
+    it { should contain_class('beaker_init::spec_dirs') }
   end
 
 end

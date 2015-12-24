@@ -1,5 +1,5 @@
 #
-class beaker_init::beaker_dirs(
+class beaker_init::spec_dirs(
   $project_dir,
 ) {
 
@@ -7,7 +7,7 @@ class beaker_init::beaker_dirs(
   file { "${project_dir}/spec":
     ensure  => 'directory',
     mode    => '0755',
-    source  => 'puppet:///modules/beaker_init/spec',
+    source  => 'puppet:///modules/beaker_init/specs',
     recurse => true,
   }
 

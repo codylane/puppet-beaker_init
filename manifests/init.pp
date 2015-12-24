@@ -106,7 +106,7 @@ class beaker_init(
   }
 
   # beaker specific setup
-  class { 'beaker_init::beaker_dirs':
+  class { 'beaker_init::spec_dirs':
     project_dir => $project_dir,
   }
 
