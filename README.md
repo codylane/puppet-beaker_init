@@ -1,18 +1,5 @@
 # beaker_init
 
-#### Table of Contents
-
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with beaker_init](#setup)
-    * [What beaker_init affects](#what-beaker_init-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with beaker_init](#beginning-with-beaker_init)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
-
 ## Overview
 
 This puppet module is meant to help aid in puppet beaker testing.  It sets up
@@ -69,7 +56,7 @@ git clone https://github.com/codylane/puppet-beaker_init.git beaker_init
 ### Installing from the forge?
 TODO: I need to figure out how to do this.
 
-### Setup Requirements 
+### Setup Requirements
 
 NOTE: Make sure that you have puppetlabs-stdlib installed in your
 modules.  If you are using the `bin/beaker_init` script it will handle
@@ -96,71 +83,13 @@ where you installed this repo and run the following command:
 bin/beaker_init
 ```
 
-The command above will create a skeleton so you can quickly start using
-beaker + puppet rspec... etc.
+The command above will create a skeleton in `/tmp/exmaple_project` so you can
+quickly start using beaker + puppet rspec... etc.
 
-## Usage
-
-This may seem a little clunky at first and it is, but I'll continue to
-refactor and share updates.  I also look for suggestions if you would
-like additional features?
-
-### Create your hiera project bucket.
-
-Besure to add this to your hiera datadir location. Or, you can use the
-one provided in this repo.
-
-Example directory: `/etc/puppet/hieradata/beaker.yaml`
-```
-beaker_nodesets:
-  example_project:
-    centos-6u7-x64:
-      project_dir: /tmp/example_project
-      nodeset_name: centos-6u7-x64
-    centos-default:
-      project_dir: /tmp/example_project
-      nodeset_name: centos-default
-      hypervisor: docker
-      docker_image: centos:6.6
-```
-
-The above defines a namespace called `beaker_nodesets` so you can do a
-hiera lookup on that variable.  If you use roles and profiles you would
-create a new profile and define the hiera lookup there.
-
-NOTE: This example requires that you have a fact called
-`beaker_project` which will we do here for this simple example.
-```
-export FACTER_beaker_project="/tmp/example_project"
-```
-
-Now we will define a quick and dirty wrapper manifest, which we will
-store in `/tmp/site.pp`
-```
-node default {
-  $beaker_nodesets = hiera('beaker_nodesets')
-
-  create_resources(beaker_init::nodeset, $beaker_nodesets[$::beaker_project])
-}
-```
-
-If you installed puppet as a package
-```
-puppet apply --modulepath /your/module/path /tmp/site.pp
-```
-
-If you installed pupept as a gem
-```
-bundle exec puppet apply --modulepath /your/module/path /tmp/site.pp
-```
-
-Or...
-
-Use the module provided helper script to do all of this for you.
-```
-cd /path/to/your/modules/beaker_init
-bin/beaker_init
-```
+Now that you have all the base stuff setup, you'll need to start
+defining your beaker acceptance tests. Here is a pretty descent example
+of what the layout of a complext beaker test suite would like like.
+https://github.com/puppetlabs/puppetlabs-mysql/tree/master/spec
 
 ## Development
 
