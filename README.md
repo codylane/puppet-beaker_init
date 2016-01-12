@@ -86,9 +86,9 @@ bin/beaker_init
 The command above will create a skeleton in `/tmp/exmaple_project` so you can
 quickly start using beaker + puppet rspec... etc.
 
-Now that you have all the base stuff setup, you'll need to start
+Now that you have a base skeleton beaker structure, you'll need to start
 defining your beaker acceptance tests. Here is a pretty descent example
-of what the layout of a complext beaker test suite would like like.
+of what the layout of a complex beaker test suite would like like.
 https://github.com/puppetlabs/puppetlabs-mysql/tree/master/spec
 
 ## Development
