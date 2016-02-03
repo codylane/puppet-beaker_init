@@ -50,6 +50,10 @@ class beaker_init::params {
       'ensure'                     => 'present',
       'gem_attrs'                  => [':require => false'],
     },
+    'rspec-puppet-facts'           => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  => [':require => false']
+    },
   }
 
 }
