@@ -63,4 +63,4 @@ PUPPET_CMD=$(get_puppet_cmd)
 # just incase we need to install exra modules from the forge
 install_puppet_module "puppetlabs-stdlib"
 
-eval $PUPPET_CMD apply --basemodulepath "$MODULE_PATH/modules:../modules:$($PUPPET_CMD config print basemodulepath)" --hiera_config $HIERA_YAML $MODULE_PATH/site.pp
+eval $PUPPET_CMD apply --basemodulepath "$MODULE_PATH/modules:../modules:$($PUPPET_CMD config print basemodulepath)" --hiera_config $HIERA_YAML $MODULE_PATH/site.pp $*
