@@ -1,5 +1,5 @@
 {
-  "name": "puppet-beaker_init",
+  "name": "codylane-beaker_init",
   "version": "2015.12.21",
   "author": "Cody Lane",
   "summary": "A puppet module for building out a skeleton directory for your beaker tests",
