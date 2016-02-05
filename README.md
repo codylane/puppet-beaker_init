@@ -98,6 +98,6 @@ I'll be happy to review and merge into this repo.
 
 ## Release Notes
 
-`2015.12.21`
+`2015.4.0`
 First release.  Handles vagrant and docker hypervisor environments used
 with beaker.
