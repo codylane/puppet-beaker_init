@@ -1,3 +1,4 @@
+#
 class beaker_init::raketask(
   $project_dir,
 ){
@@ -14,10 +15,10 @@ class beaker_init::raketask(
   }
 
   file { "${project_dir}/tasks":
-    ensure       => file,
-    mode         => '0644',
-    source       => "puppet:///modules/beaker_init/tasks/",
-    recurse      => true,
+    ensure  => file,
+    mode    => '0644',
+    source  => 'puppet:///modules/beaker_init/tasks/',
+    recurse => true,
   }
 
 }

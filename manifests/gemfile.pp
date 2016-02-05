@@ -1,3 +1,4 @@
+#
 class beaker_init::gemfile(
   $path,
   $gems,

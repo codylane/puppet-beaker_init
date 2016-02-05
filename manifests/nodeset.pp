@@ -1,3 +1,4 @@
+#
 define beaker_init::nodeset(
   $project_dir,
   $nodeset_name          = $title,
@@ -17,7 +18,7 @@ define beaker_init::nodeset(
 ) {
 
   if ! defined(Class['beaker_init']) {
-    class { "beaker_init":
+    class { 'beaker_init':
       project_dir => $project_dir
     }
   }
