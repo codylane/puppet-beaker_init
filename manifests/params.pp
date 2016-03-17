@@ -54,6 +54,18 @@ class beaker_init::params {
       'ensure'                     => 'present',
       'gem_attrs'                  => [':require => false']
     },
+    'rspec'                        => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  =>  [':require => false']
+    },
+    'mocha'                        => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  =>  [':require => false'],
+    },
+    'mcollective-test'             => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  => [':require => false'],
+    }
   }
 
 }

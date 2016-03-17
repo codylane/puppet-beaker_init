@@ -48,6 +48,13 @@ puppetversion = ENV.key?('PUPPET_VERSION') ? "= \#{ENV['PUPPET_VERSION']}" : ['>
 gem "present-gem"
 gem "another-gem", :require => false, ">= 1.0.0"
 gem "single-arg-gem", :require => true
+
+mcollective_version = ENV['MCOLLECTIVE_GEM_VERSION']
+if mcollective_version
+  gem 'mcollective-client', mcollective_version, :require => false
+else
+  gem 'mcollective-client', :require => false
+end
 EOS
     end
 
@@ -85,6 +92,13 @@ source "http://anotherwebsite.com"
 puppetversion = ENV.key?('PUPPET_VERSION') ? "= \#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
 
 gem "some-gem"
+
+mcollective_version = ENV['MCOLLECTIVE_GEM_VERSION']
+if mcollective_version
+  gem 'mcollective-client', mcollective_version, :require => false
+else
+  gem 'mcollective-client', :require => false
+end
 EOS
     end
 
@@ -115,6 +129,13 @@ source "https://rubygems.org"
 
 puppetversion = ENV.key?('PUPPET_VERSION') ? "= \#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
 
+
+mcollective_version = ENV['MCOLLECTIVE_GEM_VERSION']
+if mcollective_version
+  gem 'mcollective-client', mcollective_version, :require => false
+else
+  gem 'mcollective-client', :require => false
+end
 EOS
     end
 

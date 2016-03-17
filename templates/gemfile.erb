@@ -19,3 +19,10 @@ puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>=
 gem "<%= gem_name %>"<%= gem_attrs %>
 <% end -%>
 <% end -%>
+
+mcollective_version = ENV['MCOLLECTIVE_GEM_VERSION']
+if mcollective_version
+  gem 'mcollective-client', mcollective_version, :require => false
+else
+  gem 'mcollective-client', :require => false
+end
