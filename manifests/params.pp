@@ -68,4 +68,38 @@ class beaker_init::params {
     }
   }
 
+  $gitignore_content = '
+## MAC OS
+.DS_Store
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## EMACS
+*~
+\#*
+.\#*
+
+## VIM
+*.swp
+tags
+
+## bundler
+.bundle
+.vendor
+vendor
+
+## spec/fixtures
+spec/fixtures/manifests
+spec/fixtures/modules
+
+## Beaker
+log
+provisioned
+
+## vagrant
+.vagrant
+  '
+
 }

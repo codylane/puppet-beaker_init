@@ -19,6 +19,7 @@ describe 'beaker_init::nodeset', :type => :define do
 
     it { should compile }
     it { should contain_class('beaker_init') }
+    it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -80,6 +81,7 @@ EOS
 
     it { should compile }
     it { should contain_class('beaker_init') }
+    it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -128,6 +130,7 @@ EOS
 
     it { should compile }
     it { should contain_class('beaker_init') }
+    it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -167,6 +170,7 @@ EOS
 
       it { should compile }
       it { should contain_class('beaker_init') }
+      it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
       it { should contain_class('beaker_init::raketask') }
       it { should contain_class('beaker_init::gemfile') }
       it { should contain_class('beaker_init::spec_dirs') }
@@ -212,6 +216,7 @@ EOS
 
     it { should compile }
     it { should contain_class('beaker_init') }
+    it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -253,6 +258,11 @@ EOS
       end
 
       it { should compile }
+
+      describe 'contain defined type beaker_init::gitignore' do
+        it { should contain_beaker_init__gitignore('/tmp/project/.gitignore') }
+        it { should contain_file('/tmp/project/.gitignore').with_ensure('file') }
+      end
 
       describe 'contain class[beaker_init]' do
         it { should contain_class('beaker_init') }
