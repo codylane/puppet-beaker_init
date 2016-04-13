@@ -68,8 +68,7 @@ class beaker_init::params {
     }
   }
 
-  $gitignore_content = '
-## MAC OS
+  $gitignore_content = '## MAC OS
 .DS_Store
 
 ## TEXTMATE
@@ -100,6 +99,6 @@ provisioned
 
 ## vagrant
 .vagrant
-  '
+'
 
 }

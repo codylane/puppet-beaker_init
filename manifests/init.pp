@@ -99,6 +99,10 @@ class beaker_init(
     content => $gitignore_content,
   }
 
+  beaker_init::dotrspec { "${project_dir}/.rspec":
+    content => "--format d\n--color",
+  }
+
   class { 'beaker_init::gemfile':
     path => "${project_dir}/Gemfile",
     gems => $gems,

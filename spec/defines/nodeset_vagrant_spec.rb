@@ -20,6 +20,7 @@ describe 'beaker_init::nodeset', :type => :define do
     it { should compile }
     it { should contain_class('beaker_init') }
     it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
+    it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -82,6 +83,7 @@ EOS
     it { should compile }
     it { should contain_class('beaker_init') }
     it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
+    it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -131,6 +133,7 @@ EOS
     it { should compile }
     it { should contain_class('beaker_init') }
     it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
+    it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -171,6 +174,7 @@ EOS
       it { should compile }
       it { should contain_class('beaker_init') }
       it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
+      it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
       it { should contain_class('beaker_init::raketask') }
       it { should contain_class('beaker_init::gemfile') }
       it { should contain_class('beaker_init::spec_dirs') }
@@ -217,6 +221,7 @@ EOS
     it { should compile }
     it { should contain_class('beaker_init') }
     it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
+    it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
     it { should contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::gemfile') }
     it { should contain_class('beaker_init::spec_dirs') }
@@ -258,6 +263,11 @@ EOS
       end
 
       it { should compile }
+
+      describe 'contain defined type beaker_init::dotrspec' do
+        it { should contain_beaker_init__dotrspec('/tmp/project/.rspec') }
+        it { should contain_file('/tmp/project/.rspec').with_ensure('file') }
+      end
 
       describe 'contain defined type beaker_init::gitignore' do
         it { should contain_beaker_init__gitignore('/tmp/project/.gitignore') }

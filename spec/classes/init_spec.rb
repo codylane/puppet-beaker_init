@@ -21,6 +21,11 @@ describe 'beaker_init' do
       it { should contain_file('/foo/project') }
     end
 
+    context 'contain defined type beaker_init::dotrspec' do
+      it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
+      it { should contain_file('/foo/project/.rspec').with_ensure('file') }
+    end
+
     context 'contain defined type beaker_init::gitignore' do
       it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
       it { should contain_file('/foo/project/.gitignore').with_ensure('file') }
@@ -58,6 +63,7 @@ describe 'beaker_init' do
     it { should contain_class('beaker_init') }
     it { should contain_class('beaker_init::params') }
     it { should contain_beaker_init__gitignore('/foo/project/.gitignore') }
+    it { should contain_beaker_init__dotrspec('/foo/project/.rspec') }
     it { should contain_class('beaker_init::gemfile') }
     it { should_not contain_class('beaker_init::raketask') }
     it { should contain_class('beaker_init::spec_dirs') }
