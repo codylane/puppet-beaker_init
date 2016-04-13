@@ -1,12 +1,12 @@
 #
 define beaker_init::dotrspec(
   $project_dir = $beaker_init::project_dir,
-  $content     = "--format d\n--color",
 ) {
+  include ::beaker_init
 
   file { "${project_dir}/.rspec":
     ensure  => 'file',
-    content => $content,
+    content => template('beaker_init/rspec.erb'),
   }
 
 }

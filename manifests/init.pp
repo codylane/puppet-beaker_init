@@ -90,17 +90,16 @@ class beaker_init(
   $project_dir,
   $gems              = $beaker_init::params::gems,
   $define_raketasks  = true,
-  $gitignore_content = $beaker_init::params::gitignore_content,
 ) inherits beaker_init::params {
 
   validate_hash($gems)
 
-  beaker_init::gitignore { "${project_dir}/.gitignore":
-    content => $gitignore_content,
-  }
+  beaker_init::gitignore { "${project_dir}/.gitignore": }
 
-  beaker_init::dotrspec { "${project_dir}/.rspec":
-    content => "--format d\n--color",
+  beaker_init::dotrspec { "${project_dir}/.rspec": }
+
+  beaker_init::dotfixtures { "${project_dir}/.fixtures.yml":
+    mod_name => $title,
   }
 
   class { 'beaker_init::gemfile':
