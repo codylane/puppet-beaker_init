@@ -65,7 +65,15 @@ class beaker_init::params {
     'mcollective-test'             => {
       'ensure'                     => 'present',
       'gem_attrs'                  => [':require => false'],
-    }
+    },
+    'deep_merge'                   => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  =>  [':require => false'],
+    },
+    'rugged'                       => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  =>  [':require => false'],
+    },
   }
 
 }
