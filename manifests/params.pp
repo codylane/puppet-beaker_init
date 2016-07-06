@@ -76,7 +76,7 @@ class beaker_init::params {
     },
     'hiera-eyaml'                  => {
       'ensure'                     => 'present',
-      'gem_attrs'                  =>  [':required => false'],
+      'gem_attrs'                  =>  [':require => false'],
     },
   }
 }
