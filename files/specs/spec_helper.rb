@@ -47,5 +47,23 @@ def read_fixture_file filename
   File.read(filename)
 end
 
+def get_hiera_config
+  hiera_dir = get_spec_fixtures_dir
+  hiera_conf = hiera_dir + '/hiera.yaml'
+
+  hiera_conf
+end
+
+def hiera_lookup(key, scope, resolution_type={:behavior => :deeper})
+  @hiera = Hiera.new(:config => get_hiera_config)
+  result = @hiera.lookup(key, nil, scope, nil, resolution_type)
+
+  result
+end
+
+RSpec.configure do |c|
+  # c.hiera_config = get_hiera_config
+end
+
 # Include code coverage report for all our specs
 at_exit { RSpec::Puppet::Coverage.report! }
