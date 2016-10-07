@@ -3,8 +3,7 @@ require 'spec_helper'
 describe 'beaker_init::gemfile' do
 
   context 'without $path and $gems' do
-    it { is_expected.to compile.and_raise_error(/expects a value for parameter 'gems'/) }
-    it { is_expected.to compile.and_raise_error(/expects a value for parameter 'path'/) }
+    it { is_expected.to compile.and_raise_error(/path/) }
   end
 
   context 'when $gems is a not a hash' do

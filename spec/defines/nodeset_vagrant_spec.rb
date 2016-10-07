@@ -5,7 +5,7 @@ describe 'beaker_init::nodeset', :type => :define do
   context 'without project_dir' do
     let(:title) { 'default' }
 
-    it { is_expected.to compile.and_raise_error(/expects a value for parameter 'project_dir'/) }
+    it { is_expected.to compile.and_raise_error(/project_dir/) }
   end
 
   context 'with project_dir' do
@@ -35,8 +35,8 @@ HOSTS:
       - agent
     platform: el-6-x86_64
     hypervisor: vagrant
-    box: centos-65-x64-vbox436-nocm
-    box_url: http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box
+    box: centos-6.6-64-nocm
+    box_url: https://atlas.hashicorp.com/puppetlabs/centos-6.6-64-nocm
     vb_gui: false
 CONFIG:
   type: foss
@@ -121,7 +121,7 @@ HOSTS:
       - agent
     platform: el-6-x86_64
     hypervisor: docker
-    image: centos6.7
+    image: centos:6
     docker_image_commands:
       - run this
       - then run this
@@ -167,7 +167,7 @@ HOSTS:
       - agent
     platform: el-6-x86_64
     hypervisor: docker
-    image: centos6.7
+    image: centos:6
     docker_preserve_image: false
 CONFIG:
   type: foss
@@ -213,8 +213,8 @@ HOSTS:
       - agent
     platform: el-6-x86_64
     hypervisor: vagrant
-    box: centos-65-x64-vbox436-nocm
-    box_url: http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box
+    box: centos-6.6-64-nocm
+    box_url: https://atlas.hashicorp.com/puppetlabs/centos-6.6-64-nocm
     vb_gui: false
     snapshot: somevalue
 CONFIG:

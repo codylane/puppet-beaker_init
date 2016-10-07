@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'beaker_init::spec_dirs' do
 
   context 'without $project_dir' do
-    it { is_expected.to compile.and_raise_error(/expects a value for parameter 'project_dir'/) }
+    it { is_expected.to compile.and_raise_error(/project_dir/) }
   end
 
   context 'with $project_dir' do
