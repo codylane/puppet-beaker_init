@@ -39,10 +39,27 @@ describe 'beaker_init::gemfile' do
       }
     end
     let(:expected_gemfile) do
-<<-EOS
+<<-'EOS'
 source "https://rubygems.org"
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? "= \#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
+def location_for(place, fake_version = nil)
+  if place =~ /^(git[:@][^#]*)#(.*)/
+    [fake_version, { :git => $1, :branch => $2, :require => false }].compact
+  elsif place =~ /^file:\/\/(.*)/
+    ['>= 0', { :path => File.expand_path($1), :require => false }]
+  else
+    [place, { :require => false }]
+  end
+end
+
+ruby_ver = RUBY_VERSION.gsub(/\./, "").to_i
+if ruby_ver < 225
+  ENV['BEAKER_VERSION'].nil? ? ENV['BEAKER_VERSION'] = '2.51.0' : nil
+else
+  ENV['BEAKER_VERSION'].nil? ? ENV['BEAKER_VERSION'] = '3.10.0' : nil
+end
+
+puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3']
 
 gem "present-gem"
 gem "another-gem", :require => false, ">= 1.0.0"
@@ -84,11 +101,28 @@ EOS
     end
 
     let(:expected_gemfile) do
-<<-EOS
+<<-'EOS'
 source "http://somewebsite.com"
 source "http://anotherwebsite.com"
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? "= \#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
+def location_for(place, fake_version = nil)
+  if place =~ /^(git[:@][^#]*)#(.*)/
+    [fake_version, { :git => $1, :branch => $2, :require => false }].compact
+  elsif place =~ /^file:\/\/(.*)/
+    ['>= 0', { :path => File.expand_path($1), :require => false }]
+  else
+    [place, { :require => false }]
+  end
+end
+
+ruby_ver = RUBY_VERSION.gsub(/\./, "").to_i
+if ruby_ver < 225
+  ENV['BEAKER_VERSION'].nil? ? ENV['BEAKER_VERSION'] = '2.51.0' : nil
+else
+  ENV['BEAKER_VERSION'].nil? ? ENV['BEAKER_VERSION'] = '3.10.0' : nil
+end
+
+puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3']
 
 gem "some-gem"
 
@@ -123,10 +157,27 @@ EOS
     end
 
     let(:expected_gemfile) do
-<<-EOS
+<<-'EOS'
 source "https://rubygems.org"
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? "= \#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
+def location_for(place, fake_version = nil)
+  if place =~ /^(git[:@][^#]*)#(.*)/
+    [fake_version, { :git => $1, :branch => $2, :require => false }].compact
+  elsif place =~ /^file:\/\/(.*)/
+    ['>= 0', { :path => File.expand_path($1), :require => false }]
+  else
+    [place, { :require => false }]
+  end
+end
+
+ruby_ver = RUBY_VERSION.gsub(/\./, "").to_i
+if ruby_ver < 225
+  ENV['BEAKER_VERSION'].nil? ? ENV['BEAKER_VERSION'] = '2.51.0' : nil
+else
+  ENV['BEAKER_VERSION'].nil? ? ENV['BEAKER_VERSION'] = '3.10.0' : nil
+end
+
+puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3']
 
 
 mcollective_version = ENV['MCOLLECTIVE_GEM_VERSION']

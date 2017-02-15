@@ -19,6 +19,10 @@ class beaker_init::params {
       'ensure'                     => 'present',
       'gem_attrs'                  => ['">= 1.7.0"'],
     },
+    'beaker'                       => {
+      'ensure'                     => 'present',
+      'gem_attrs'                  => ["*location_for(ENV['BEAKER_VERSION'] || '~> 2.0')"],
+    },
     'beaker-puppet_install_helper' => {
       'ensure'                     => 'present',
       'gem_attrs'                  =>  [':require => false'],
