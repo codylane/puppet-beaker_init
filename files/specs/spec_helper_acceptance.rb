@@ -1,6 +1,7 @@
 require 'beaker-rspec'
 require 'beaker_spec_helper'
 require 'beaker/puppet_install_helper'
+require 'json'
 require 'yaml'
 include BeakerSpecHelper
 
@@ -15,7 +16,9 @@ end
 RSpec.configure do |c|
   # Project root
   module_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-  module_name = File.basename(module_root.split('-').last)
+  metadata_content = File.read(File.join(module_root, 'metadata.json'))
+  metdata_hash = JSON.load(metadata_content)
+  module_name = metdata_hash['name'].split('-').last
 
   # Readable test descriptions
   c.formatter = :documentation
@@ -30,7 +33,7 @@ RSpec.configure do |c|
       end
 
       # Ensure that the git package is installed (RedHat-specific package name)
-      on host, puppet('apply -e "package { \'git\': ensure => installed }"')
+      install_package(host, 'git')
 
       # https://github.com/camptocamp/beaker_spec_helper
       BeakerSpecHelper::spec_prep(host)
