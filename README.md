@@ -18,19 +18,17 @@ https://github.com/puppetlabs/beaker/tree/master/docs
 
 It helps you test your puppet modules in a local environment before
 rolling them into you production repositories.  It is not meant to
-replce things like CI but help aid in your CI development cycle.
+replace things like CI but help aid in your CI development cycle.
 
 ## Module Description
 
-When I first starting learning beaker, I found that it required a lot of
-setup that I didn't know about off hand.  It took me a while to get all
-the directory structure in place and just to write a small test.  Yes,
-there are examples out there online that help you.  I hope this module
-will help you get some common things in place so that you can to do what you
-do best, which is writting code for your environment.
+When I first started learning beaker I found that it required a lot of
+setup that I didn't know about off hand. It took me a while to get all
+the directory structure in place to to write a basic tests. I hope this module
+will help remove some of those obstacles.
 
-You could use this module in your puppet development workflow just to
-create a base skeleton or... You can use it to procativliey adjust your
+You could use this module in your puppet development workflow to
+create a base skeleton or... You can use it to proactively adjust your
 puppet development beaker projects. It's all up to you.
 
 ### Quick overview of features
@@ -54,17 +52,18 @@ git clone https://github.com/codylane/puppet-beaker_init.git beaker_init
 ```
 
 ### Installing from the forge?
-TODO: I need to figure out how to do this.
+This feature will not be enabled because this module may not provide a
+whole lot of value now that PDK is out and probably should be used
+instead.
 
 ### Setup Requirements
 
 NOTE: Make sure that you have puppetlabs-stdlib installed in your
-modules.  If you are using the `bin/beaker_init` script it will handle
+modules. If you are using the `bin/beaker_init` script it will handle
 this for you.
 
 It is expected that you run this using `puppet apply` but you may also
 integrate this module in your puppet master.
-
 
 If you want to use hiera please see the hiera example layout listed in
 this repo.
